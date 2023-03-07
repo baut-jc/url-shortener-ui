@@ -1,53 +1,61 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class UrlForm extends Component {
-  constructor(props) {
-    super();
-    this.props = props;
-    this.state = {
-      title: '',
-      urlToShorten: ''
-    };
+function UrlForm(props) {
+  const [title, setTitle] = useState('')
+  const [urlToShorten, setUrlToShorten] = useState('')
+  //     this.props = props;
+  //   }
+
+  const submitURL = event => {
+    event.preventDefault();
+    const newURL = {
+      // id: Date.now(),
+      title,
+      long_url: urlToShorten
+    }
+    props.addURL(newURL.title, newURL.long_url)
+    clearInputs();
   }
-
-  handleNameChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  
+  const clearInputs = () => {
+    setTitle('')
+    setUrlToShorten('')
   }
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.clearInputs();
-  }
-
-  clearInputs = () => {
-    this.setState({title: '', urlToShorten: ''});
-  }
-
-  render() {
-    return (
-      <form>
+  
+  return (
+    <form>
         <input
           type='text'
           placeholder='Title...'
           name='title'
-          value={this.state.title}
-          onChange={e => this.handleNameChange(e)}
-        />
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          />
 
         <input
           type='text'
           placeholder='URL to Shorten...'
-          name='title'
-          value={this.state.title}
-          onChange={e => this.handleNameChange(e)}
+          name='urlToShorten'
+          value={urlToShorten}
+          onChange={e => setUrlToShorten(e.target.value)}
         />
 
-        <button onClick={e => this.handleSubmit(e)}>
+        <button onClick={submitURL}>
           Shorten Please!
         </button>
       </form>
     )
   }
-}
+
+  //   handleNameChange = e => {
+    //     this.setState({ [e.target.name]: e.target.value });
+//   }
+
+//   handleSubmit = e => {
+  //     e.preventDefault();
+  //     this.clearInputs();
+  //   }
+
+
 
 export default UrlForm;
