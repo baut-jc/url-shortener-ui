@@ -14,4 +14,8 @@ describe('URL Shortener', () => {
     cy.get('button').should('contain', 'Shorten Please!')
   })
 
+  it('should reflect information in the input field', () => {
+    cy.get('[placeholder="Title..."]').type('Title here')
+    cy.get('[placeholder="URL to Shorten..."]').type('superloooooongURLandlotsofslash-and-dash.com')
+  })
 })
